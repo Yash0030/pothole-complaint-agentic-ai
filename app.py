@@ -13,11 +13,11 @@ import json
 import cv2
 import supervision as sv
 from roboflow import Roboflow
-import numpy as np
+
 from datetime import datetime
 from flask import flash
 from math import radians, sin, cos, sqrt, atan2
-import joblib
+
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 import cloudinary
