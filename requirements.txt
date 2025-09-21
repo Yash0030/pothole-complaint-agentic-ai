@@ -9,6 +9,7 @@ roboflow==1.1.61
 cloudinary==1.44.0
 scikit-learn==1.5.2
 numpy
+pillow_heif==0.22.0
 yagmail==0.15.293
 langchain
 langchain-google-genai==2.0.5
