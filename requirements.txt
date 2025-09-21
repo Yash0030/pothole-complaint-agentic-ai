@@ -8,9 +8,9 @@ supervision==0.25.1
 roboflow==1.1.61
 cloudinary==1.44.0
 scikit-learn==1.5.2
-numpy==2.2.4
+numpy
 yagmail==0.15.293
-langchain==0.3.7
+langchain
 langchain-google-genai==2.0.5
 langgraph==0.2.45
 APScheduler==3.10.4
