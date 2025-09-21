@@ -1,0 +1,726 @@
+
+  /*--------------------------------------------------------------
+  # General Styling & Shared Classes
+  --------------------------------------------------------------*/
+  body {
+    color: var(--default-color);
+    background-color: var(--background-color);
+    /* font-family: Blackletter, Old English Text MT, Gothic A1, \serif; */
+  }
+  
+  a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  
+  a:hover {
+    color: color-mix(in srgb, var(--accent-color), transparent 25%);
+    text-decoration: none;
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--heading-color);
+    font-family: var(--heading-font);
+  }
+  
+  
+  /*--------------------------------------------------------------
+  # Global Header
+  --------------------------------------------------------------*/
+  /* Enhanced Header with Animations, 3D Effects and Fixed Scroll Behavior */
+  .header {
+    --background-color: rgba(0, 0, 0, 0.85);
+    --heading-color: #090808;
+    /* --contrast-color: #ffffff; */
+    color: var(--default-color);
+    background-color: var(--background-color);
+    padding: 15px 0;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 997;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    width: 100%;
+    position: fixed;
+    background:none;
+    top: 0;
+    left: 0;
+  }
+  
+  /* Initial transparent state for index page */
+  .index-page .header {
+    --background-color: rgba(0, 0, 0, 0);
+    box-shadow: none;
+  }
+  
+  /* Scrolled state for all pages */
+  .scrolled .header {
+    background-color: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    padding: 10px 0;
+  }
+  
+  /* Index page specific scroll behavior */
+  .index-page.scrolled .header {
+    --background-color: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Scroll behavior script to add to your JS file */
+  /* 
+  document.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('.header');
+      const body = document.body;
+      
+      if (window.scrollY > 100) {
+        body.classList.add('scrolled');
+      } else {
+        body.classList.remove('scrolled');
+      }
+    });
+  });
+  */
+  
+  .header .logo {
+    line-height: 1;
+    transform: translateZ(10px);
+    transition: transform 0.5s ease;
+  }
+  
+  .header .logo:hover {
+    transform: translateZ(20px) scale(1.05);
+  }
+  
+  .header .logo img {
+    max-height: 48px;
+    margin-right: 10px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.4));
+    transition: all 0.4s ease;
+  }
+  
+  .header .logo img:hover {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7));
+  }
+  
+  .header .logo h1 {
+    font-size: 38px;
+    margin: 0;
+    font-weight: 800;
+    color: var(--heading-color);
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease;
+  }
+  
+  .header .logo h1:hover {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.3);
+    letter-spacing: 1.5px;
+  }
+  
+  .header .logo span {
+    color: var(--accent-color);
+    font-size: 38px;
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(241, 196, 15, 0.4);
+    transition: all 0.4s ease;
+  }
+  
+  .header .logo span:hover {
+    text-shadow: 0 0 15px rgba(241, 196, 15, 0.7);
+  }
+  
+  /* Enhanced Button Styles */
+  /* .header .btn-getstarted,
+  .header .btn-getstarted:focus {
+    color: var(--contrast-color);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 32px;
+    margin: 0 0 0 30px;
+    border-radius: 6px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 2px solid var(--accent-color);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    transform: translateZ(5px);
+  }
+  
+  .header .btn-getstarted:before,
+  .header .btn-getstarted:focus:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+    z-index: -1;
+  }
+  
+  .header .btn-getstarted:hover:before,
+  .header .btn-getstarted:focus:hover:before {
+    left: 100%;
+  }
+  
+  .header .btn-getstarted:hover,
+  .header .btn-getstarted:focus:hover {
+    color: #000;
+    background: var(--accent-color);
+    transform: translateZ(15px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(241, 196, 15, 0.5);
+    text-shadow: none;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+  
+  .button-group a.btn-getstarted {
+    border: 2px solid #f1c40f;
+    padding: 12px 24px;
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(5px);
+  }
+  
+  .button-group a.btn-getstarted:hover {
+    background-color: #f1c40f;
+    color: black;
+    transform: translateZ(15px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(241, 196, 15, 0.5);
+  }
+  
+  .button-group a.btn-getstarted:after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, transparent, #f1c40f, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .button-group a.btn-getstarted:hover:after {
+    opacity: 1;
+  } */
+  
+  /* Enhanced Navigation Menu */
+  @media (min-width: 1200px) {
+    .navmenu {
+      padding: 0;
+      transform-style: preserve-3d;
+    }
+  
+    .navmenu ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      list-style: none;
+      align-items: center;
+      gap: 5px;
+    }
+  
+    .navmenu li {
+      position: relative;
+      transition: transform 0.4s ease;
+      transform-style: preserve-3d;
+    }
+    
+    .navmenu li:hover {
+      transform: translateZ(10px);
+    }
+  
+    .navmenu a,
+    .navmenu a:focus {
+      color: var(--nav-color,none);
+      padding: 18px 20px;
+      font-size: 18px;
+      font-weight: 600;
+      font-family: var(--nav-font);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      white-space: nowrap;
+      transition: all 0.4s ease;
+      position: relative;
+      letter-spacing: 0.5px;
+    }
+  
+    .navmenu a:before,
+    .navmenu a:focus:before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 3px;
+      bottom: 8px;
+      left: 20px;
+      background-color: #f1c40f;
+      transition: width 0.4s ease;
+    }
+  
+    .navmenu a i,
+    .navmenu a:focus i {
+      font-size: 14px;
+      line-height: 0;
+      margin-left: 8px;
+      transition: 0.4s;
+    }
+  
+    .navmenu li:last-child a {
+      padding-right: 0;
+    }
+  
+    .navmenu li:hover>a:before,
+    .navmenu .active:before {
+      width: calc(100% - 40px);
+    }
+  
+    .navmenu li:hover>a,
+    .navmenu .active,
+    .navmenu .active:focus {
+      color: #f1c40f;
+      text-shadow: 0 0 10px rgba(241, 196, 15, 0.4);
+    }
+  
+    /* Enhanced Dropdown Menus */
+    .navmenu .dropdown ul {
+      margin: 0;
+      padding: 15px 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: block;
+      position: absolute;
+      visibility: hidden;
+      left: 14px;
+      top: 130%;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border-radius: 8px;
+      z-index: 99;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(241, 196, 15, 0.2);
+      transform: translateY(20px) rotateX(-15deg);
+      transform-origin: top center;
+    }
+  
+    .navmenu .dropdown ul li {
+      min-width: 220px;
+    }
+  
+    .navmenu .dropdown ul a {
+      padding: 12px 20px;
+      font-size: 16px;
+      text-transform: none;
+      color: #ffffff;
+      border-left: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+  
+    .navmenu .dropdown ul a:before {
+      display: none;
+    }
+  
+    .navmenu .dropdown ul a i {
+      font-size: 14px;
+    }
+  
+    .navmenu .dropdown ul a:hover,
+    .navmenu .dropdown ul .active:hover,
+    .navmenu .dropdown ul li:hover>a {
+      background-color: rgba(241, 196, 15, 0.1);
+      color: #f1c40f;
+      border-left: 3px solid #f1c40f;
+    }
+  
+    .navmenu .dropdown:hover>ul {
+      opacity: 1;
+      top: 100%;
+      visibility: visible;
+      transform: translateY(0) rotateX(0);
+    }
+  
+    .navmenu .dropdown .dropdown ul {
+      top: 0;
+      left: -90%;
+      visibility: hidden;
+      transform: translateX(20px) rotateY(-15deg);
+    }
+  
+    .navmenu .dropdown .dropdown:hover>ul {
+      opacity: 1;
+      top: 0;
+      left: -100%;
+      visibility: visible;
+      transform: translateX(0) rotateY(0);
+    }
+  }
+  
+  /* Entry Animation for Header */
+  @keyframes headerSlideDown {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .header {
+    animation: headerSlideDown 0.8s ease-out forwards;
+  }
+  
+  /* Animation for Logo */
+  @keyframes logoReveal {
+    0% {
+      opacity: 0;
+      transform: scale(0.8) translateZ(0);
+    }
+    70% {
+      opacity: 1;
+      transform: scale(1.1) translateZ(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateZ(10px);
+    }
+  }
+  
+  .header .logo {
+    animation: logoReveal 1s ease 0.3s forwards;
+    opacity: 0;
+  }
+  
+  /* Animation for Navigation Items */
+  @keyframes navItemsReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .navmenu ul li {
+    opacity: 0;
+    animation: navItemsReveal 0.5s ease forwards;
+  }
+  
+  .navmenu ul li:nth-child(1) {
+    animation-delay: 0.4s;
+  }
+  
+  .navmenu ul li:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+  
+  .navmenu ul li:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+  
+  .navmenu ul li:nth-child(4) {
+    animation-delay: 0.7s;
+  }
+  
+  /* Animation for Buttons */
+  @keyframes buttonReveal {
+    0% {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .button-group a:nth-child(1) {
+    opacity: 0;
+    animation: buttonReveal 0.5s ease 0.8s forwards;
+  }
+  
+  .button-group a:nth-child(2) {
+    opacity: 0;
+    animation: buttonReveal 0.5s ease 0.9s forwards;
+  }
+  
+  /* Padding for Main Content - Add to your body or main container */
+  body {
+    padding-top: 100px; /* Adjust this value to match your header height */
+  }
+  
+  .index-page body {
+    padding-top: 0; /* No padding for index page with transparent header */
+  }
+  
+  /* Mobile Nav Styles with Enhanced Animations */
+  
+/*--------------------------------------------------------------
+# Mobile Navigation & Header Responsiveness (Final Version)
+--------------------------------------------------------------*/
+@media (max-width: 1199px) {
+
+  /* Ensure header container uses flex for spacing */
+  .header .container-fluid {
+    display: flex;
+    justify-content: space-between; /* Distribute items with space */
+    align-items: center;
+    padding: 10px 15px; /* Adjust header padding on mobile */
+  }
+
+  /* Logo Adjustments for Mobile */
+  .header .logo {
+    font-size: 24px; /* Smaller logo font size */
+    margin-right: 10px; /* Adjust margin */
+  }
+
+  .header .logo span {
+    font-size: 24px; /* Keep span size consistent with main logo */
+  }
+
+  /* Hide the desktop nav */
+  .navmenu {
+    display: none;
+  }
+
+  /* Mobile Nav Toggle Button Styling */
+  .mobile-nav-toggle {
+  /* --- Your existing styles --- */
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 0;
+  transition: 0.5s;
+  position: relative;
+  z-index: 9999;
+  margin-left: auto;
+  order: 2;
+
+  /* --- ADD THESE LINES TO FIX IT --- */
+  background: none;      /* Remove default gray background */
+  border: none;        /* Remove default border */
+  padding: 0;          /* Remove default padding */
+  appearance: none;    /* Recommended for resetting button styles */
+}
+
+  /* --- Button Group (Register/Login/Profile) Adjustments --- */
+  .header-buttons {
+    order: 3; /* Ensure buttons are last in the flex order */
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Smaller gap between buttons */
+  }
+
+  .header-buttons .button-group {
+    display: flex;
+    gap: 5px; /* Smaller gap for logged-in icons too */
+  }
+
+
+
+  .header-buttons .login-icon {
+    font-size: 18px; /* Adjust icon size */
+    width: 38px; /* Make icon button square */
+    height: 38px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  /* Mobile nav menu container */
+  .navmenu-mobile {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Start off-screen */
+    width: 100%;
+    height: 100%; /* Cover full viewport height */
+    background: rgba(15, 15, 15, 0.95); /* Slightly darker overlay */
+    backdrop-filter: blur(8px); /* More blur for a frosted effect */
+    padding: 100px 20px 20px 20px;
+    transition: right 0.4s ease-in-out; /* Smooth slide transition */
+    z-index: 9998;
+    display: flex; /* Use flexbox to center content */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .navmenu-mobile ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%; /* Ensure ul takes full width of its container */
+    max-width: 300px; /* Optional: limit max width for better readability */
+  }
+
+  .navmenu-mobile li {
+    padding: 10px 0; /* Slightly reduce vertical padding */
+  }
+
+  .navmenu-mobile a {
+    color: #fff;
+    font-size: 20px; /* Slightly smaller font for menu items */
+    text-decoration: none;
+    display: block; /* Make links block level for clickable area */
+    padding: 10px 15px; /* Padding inside link for easier tapping */
+    border-radius: 5px;
+    transition: 0.3s;
+    text-align: center; /* Center menu text */
+  }
+
+  .navmenu-mobile a:hover,
+  .navmenu-mobile .active {
+    color: #ffc107; /* Your accent color */
+    background-color: rgba(255, 193, 7, 0.1); /* Subtle hover background */
+  }
+
+  /* When mobile nav is active */
+  .mobile-nav-active .navmenu-mobile {
+    right: 0; /* Slide in from the right */
+  }
+
+  .mobile-nav-active .mobile-nav-toggle {
+    color: #fff;
+    position: fixed; /* Keep the toggle fixed when menu is open */
+    top: 25px;
+    right: 20px;
+    font-size: 32px; /* Slightly larger 'X' icon */
+  }
+}
+
+/* --- Welcome Message Animation for Mobile --- */
+.text-animation-container {
+  /* No change for positioning here, as it's handled by overall header structure */
+  bottom: -40px; /* Adjust position relative to header bottom */
+}
+
+.animated-text {
+  font-size: 20px; /* Smaller font for welcome message on mobile */
+  padding: 3px 10px;
+}
+
+
+
+  
+
+
+  .text-animation-container {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.animated-text {
+    display: inline-block;
+    color: #ffc107;
+    font-weight: bold;
+    animation: fadeInOut 5s infinite, slideIn 1.5s ease-out;
+    margin: 0;
+    padding: 5px 15px;
+    /* background-color: rgba(0, 0, 0, 0.7); */
+    border-radius: 5px;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+    font-size: 30px;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+@keyframes slideIn {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Adjust the header padding to make room for the animation */
+.header {
+    padding-bottom: 10px;
+}
+
+
+
+/* =======================================================
+   Final Header Button Styles (Desktop & Mobile)
+======================================================== */
+
+/* --- 1. Base Styles (for Desktop) --- */
+.header .btn-getstarted {
+  color: white;
+  background-color: transparent;
+  font-size: 16px; /* A good default size */
+  font-weight: 600;
+  padding: 10px 22px; /* A good default padding */
+  margin: 0;
+  border-radius: 6px;
+  border: 2px solid #f1c40f; /* Your accent color */
+  transition: all 0.3s ease;
+  white-space: nowrap; /* Prevents text from wrapping */
+  text-decoration: none;
+}
+
+.header .btn-getstarted:hover {
+  background-color: #f1c40f;
+  color: black;
+}
+
+.header-buttons .button-group {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between buttons on desktop */
+}
+
+
+/* --- 2. General Mobile Styles --- */
+@media (max-width: 1199px) {
+  .header .btn-getstarted {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+  .header-buttons .button-group {
+    gap: 8px;
+  }
+}
+
+
+/* --- 3. Small Mobile Styles --- */
+@media (max-width: 480px) {
+  .header .btn-getstarted {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+  .header-buttons .button-group {
+    gap: 5px;
+  }
+}
