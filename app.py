@@ -571,7 +571,7 @@ def update_complaint():
 
 # Add this to your main Flask app file
 
-from ai_agents_langgrapph import initialize_agent_system, trigger_manual_agent, cleanup_agent_system
+from ai_agents_langgraph import initialize_agent_system, trigger_manual_agent, cleanup_agent_system
 import atexit
 from datetime import datetime
 
