@@ -571,16 +571,35 @@ def update_complaint():
 
 # Add this to your main Flask app file
 
-from ai_agents_langgraph import initialize_agent_system, trigger_manual_agent
+from ai_agents.langgrapph import initialize_agent_system, trigger_manual_agent, cleanup_agent_system
 import atexit
+from datetime import datetime
 
-# Initialize agent system when app starts
-@app.before_first_request
-def startup():
-    """Initialize background services."""
-    initialize_agent_system()
+# Initialize agent system when app starts (modern Flask way)
+def create_app():
+    """Application factory pattern (if you're not using this, adapt accordingly)."""
+    app = Flask(__name__)
+    
+    # Your existing app configuration...
+    
+    # Initialize agent system after app is configured
+    with app.app_context():
+        initialize_agent_system()
+    
+    return app
 
-# Updated route with timeout protection
+# Alternative: If you're not using application factory, add this after app creation
+# Replace your old initialization code with:
+
+# After your app = Flask(__name__) line:
+@app.before_request
+def initialize_once():
+    """Initialize agent system on first request."""
+    if not hasattr(app, 'agent_initialized'):
+        app.agent_initialized = True
+        initialize_agent_system()
+
+# Updated route - replace your existing /trigger_ai_agent route
 @app.route('/trigger_ai_agent', methods=['POST'])
 def trigger_ai_agent():
     """Trigger AI agent with improved error handling."""
@@ -609,17 +628,18 @@ Pothole Management System"""
             flash(f"⚠️ AI Agent failed: {result['status']}")
             
     except Exception as e:
+        print(f"❌ Agent trigger error: {e}")
         flash(f"❌ Agent trigger error: {str(e)}")
     
     return redirect(url_for('admin_dashboard'))
 
-# Health check endpoint for monitoring
+# Add health check endpoint
 @app.route('/health', methods=['GET'])
 def health_check():
     """Health check endpoint."""
     return {
         "status": "healthy",
-        "agent_available": agent_executor is not None,
+        "agent_available": hasattr(app, 'agent_initialized'),
         "timestamp": datetime.now().isoformat()
     }
 
@@ -627,9 +647,9 @@ def health_check():
 @atexit.register
 def cleanup():
     """Cleanup resources on shutdown."""
-    if hasattr(task_manager, 'running'):
-        task_manager.running = False
-    print("🧹 Application cleanup completed")
+    cleanup_agent_system()
+
+
 def run_agent_2():
     print("[Agent 2] Checking for complaint replies...")
     agent_executor.invoke({
@@ -639,13 +659,11 @@ def run_agent_2():
 
 
 
+# Replace with:
 if __name__ == "__main__":
-    if not hasattr(app, 'scheduler_started'):  # Prevent multiple schedulers
-        scheduler = BackgroundScheduler()
-        scheduler.add_job(func=run_agent_2, trigger="interval", seconds=60)
-        scheduler.start()
-        app.scheduler_started = True  # Mark scheduler as started
-
-    app.run(debug=True, use_reloader=False)  # Disable auto-reloader
+    # Initialize agent system for local development
+    with app.app_context():
+        initialize_agent_system()
+    app.run(debug=True, use_reloader=False)
 
 
