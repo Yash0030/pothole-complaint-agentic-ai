@@ -568,7 +568,10 @@ def update_complaint():
         print(f"Error processing complaint action: {e}")
         return jsonify({"success": False, "message": str(e)}), 500
 
-
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
 # Add this to your main Flask app file
 
 from ai_agents_langgraph import initialize_agent_system, trigger_manual_agent, cleanup_agent_system
