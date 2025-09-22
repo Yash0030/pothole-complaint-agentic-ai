@@ -571,7 +571,7 @@ def update_complaint():
 
 # Add this to your main Flask app file
 
-from agent_manager import initialize_agent_system, trigger_manual_agent
+from ai_agents_langgraph import initialize_agent_system, trigger_manual_agent
 import atexit
 
 # Initialize agent system when app starts
