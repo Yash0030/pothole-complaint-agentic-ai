@@ -569,14 +569,21 @@ def update_complaint():
         return jsonify({"success": False, "message": str(e)}), 500
 
 
+# Add this to your main Flask app file
 
-@app.route('/logout')
-def logout():
-    session.clear()
-    return redirect(url_for('home'))
+from agent_manager import initialize_agent_system, trigger_manual_agent
+import atexit
 
+# Initialize agent system when app starts
+@app.before_first_request
+def startup():
+    """Initialize background services."""
+    initialize_agent_system()
+
+# Updated route with timeout protection
 @app.route('/trigger_ai_agent', methods=['POST'])
 def trigger_ai_agent():
+    """Trigger AI agent with improved error handling."""
     template = """Dear Sir/Madam,
 
 A new pothole complaint has been registered in our system.
@@ -592,11 +599,37 @@ Please take necessary action.
 Thank you,
 Pothole Management System"""
 
-    result = agent_executor.invoke({ "template": template,
-    "skip_email": False})
-    flash("AI Agent executed: " + result.get("status", "done"))
+    try:
+        # Trigger with timeout protection
+        result = trigger_manual_agent(template)
+        
+        if result["success"]:
+            flash(f"✅ AI Agent executed: {result['status']}")
+        else:
+            flash(f"⚠️ AI Agent failed: {result['status']}")
+            
+    except Exception as e:
+        flash(f"❌ Agent trigger error: {str(e)}")
+    
     return redirect(url_for('admin_dashboard'))
 
+# Health check endpoint for monitoring
+@app.route('/health', methods=['GET'])
+def health_check():
+    """Health check endpoint."""
+    return {
+        "status": "healthy",
+        "agent_available": agent_executor is not None,
+        "timestamp": datetime.now().isoformat()
+    }
+
+# Cleanup on shutdown
+@atexit.register
+def cleanup():
+    """Cleanup resources on shutdown."""
+    if hasattr(task_manager, 'running'):
+        task_manager.running = False
+    print("🧹 Application cleanup completed")
 def run_agent_2():
     print("[Agent 2] Checking for complaint replies...")
     agent_executor.invoke({
