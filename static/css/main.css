@@ -44,11 +44,9 @@ body {
 .header .container-fluid {
     max-width: 100%;
     padding: 0 20px;
-    /* --- MODIFICATION START --- */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* --- MODIFICATION END --- */
 }
 
 /* Logo Styles */
@@ -155,6 +153,7 @@ body {
 
 /* Hero Section */
 .hero {
+    padding-top: 80px; /* --- THIS IS THE FIX --- */
     position: relative;
     min-height: 100vh;
     display: flex;
