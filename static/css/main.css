@@ -153,9 +153,10 @@ body {
 
 /* Hero Section */
 .hero {
-    padding-top: 80px; /* --- THIS IS THE FIX --- */
+    height: 100vh; 
+    padding-top: 80px;
+    box-sizing: border-box;
     position: relative;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -194,7 +195,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
     padding: 20px;
     background: rgba(0, 0, 0, 0.4);
 }
@@ -221,38 +222,52 @@ body {
     margin-top: 10px;
 }
 
-/* Icon Boxes Container */
+
+/* --- MODIFICATION START: Mobile-Optimized Icon Box Layout --- */
+
 .icon-boxes-container {
     position: absolute;
     bottom: 30px;
     left: 0;
-    right: 0;
+    width: 100%;
     z-index: 3;
-    padding: 0 20px;
 }
 
 .icon-boxes-container .row {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap; /* Prevents wrapping to the next line */
+    justify-content: flex-start; /* Aligns items to the left */
     gap: 15px;
+    overflow-x: auto; /* Enables horizontal scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    padding: 10px 20px; /* Adds space at the start and end of the row */
+
+    /* Hides the scrollbar for a cleaner look */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+.icon-boxes-container .row::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
 }
 
+/* Each box will have a fixed base width */
 .icon-boxes-container .col-xl-2,
 .icon-boxes-container .col-md-4 {
-    flex: 0 0 auto;
-    width: calc(50% - 10px);
-    max-width: 150px;
+    flex: 0 0 120px; /* Each box is 120px wide and won't shrink */
 }
+
+/* --- MODIFICATION END --- */
+
 
 .icon-box {
     background: rgba(4, 28, 50, 0.9);
     border: 1px solid rgba(180, 235, 230, 0.3);
     border-radius: 12px;
-    padding: 20px 10px;
+    padding: 15px 10px;
     text-align: center;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    width: 100%; /* Makes the box fill its parent column */
 }
 
 .icon-box:hover {
@@ -262,14 +277,14 @@ body {
 }
 
 .icon-box i {
-    font-size: 24px;
+    font-size: 22px;
     color: var(--accent-color);
     margin-bottom: 10px;
     display: block;
 }
 
 .icon-box h3 {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--secondary-color);
     margin: 0;
@@ -410,23 +425,6 @@ body {
     .slide-content h2 {
         font-size: 24px;
     }
-    
-    .icon-boxes-container {
-        bottom: 20px;
-        padding: 0 15px;
-    }
-    
-    .icon-box {
-        padding: 15px 8px;
-    }
-    
-    .icon-box i {
-        font-size: 20px;
-    }
-    
-    .icon-box h3 {
-        font-size: 12px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -436,25 +434,6 @@ body {
     
     .slide-content h2 {
         font-size: 20px;
-    }
-    
-    .icon-boxes-container .col-xl-2,
-    .icon-boxes-container .col-md-4 {
-        width: calc(50% - 8px);
-        max-width: 130px;
-    }
-    
-    .icon-box {
-        padding: 12px 6px;
-    }
-    
-    .icon-box i {
-        font-size: 18px;
-        margin-bottom: 8px;
-    }
-    
-    .icon-box h3 {
-        font-size: 11px;
     }
 }
 
