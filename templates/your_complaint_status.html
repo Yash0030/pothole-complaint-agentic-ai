@@ -625,7 +625,7 @@
                     <div class="complaints-grid">
                         {% for complaint in active_complaints %}
                             <div class="complaint-card">
-                                <img src="{{ complaint['image'] }}" alt="Pothole Image" class="complaint-image">
+                                <img src="{{ complaint.image }}" alt="Pothole Image" class="image-thumbnail" onclick="openImageModal('{{ complaint.image }}')">
 
                                 <div class="complaint-details">
                                     <h3 class="complaint-description">Description</h3>
@@ -718,7 +718,7 @@
                     <div class="complaints-grid">
                         {% for complaint in resolved_complaints %}
                             <div class="complaint-card">
-                                <img src="{{ url_for('static', filename=complaint['image']) }}" alt="Pothole Image" class="complaint-image">
+                                <img src="{{ complaint.image }}" alt="Pothole Image" class="image-thumbnail" onclick="openImageModal('{{ complaint.image }}')">
                                 <div class="complaint-details">
                                     <h3 class="complaint-description">Description</h3>
                                     <p>{{ complaint['description'] }}</p>
