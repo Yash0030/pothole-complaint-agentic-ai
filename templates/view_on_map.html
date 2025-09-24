@@ -410,7 +410,7 @@
         <div class="container">
             <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
        
-                <a href="/" class="logo">fix<span>myroad</span>™</a>
+                <a href="/" class="logo">fix<span>mycity</span>™</a>
               <span>&nbsp;&nbsp;</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -547,7 +547,7 @@
                 if (!isNaN(lat) && !isNaN(lng)) {
                     const popupContent = `
                         <div class="popup-content">
-                            <img src="{{ complaint.image }}" alt="Pothole Image" class="image-thumbnail" onclick="openImageModal('{{ complaint.image }}')">
+                            <img src="${complaint.image || '/static/images/no_image.jpg'}" class="popup-image" onerror="this.src='/static/images/no_image.jpg'">
                             <div class="popup-title">Pothole Report</div>
                             <div class="popup-detail"><strong>Description:</strong> ${complaint.description || 'No description provided'}</div>
                             <div class="popup-detail"><strong>Pothole Count:</strong> ${complaint.pothole_count}</div>
